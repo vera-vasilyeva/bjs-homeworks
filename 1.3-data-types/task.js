@@ -11,7 +11,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     //процентная ставка должна быть дробным числом, следовательно, входные данные нужно разделить на 100:
     percent = percent / 100;   
     //проверяем параметр "Начальный взнос":
-    if (!contribution && contribution !== 0 || isNaN(contribution) || contribution < 0 || !contribution.trim()) {
+    if (!contribution && contribution !== 0 || isNaN(contribution) || contribution < 0) {
         console.log(`Параметр ${"contribution"} содержит неправильное значение ${contribution}`);
         return `\"Начальный взнос\" указан некорректно. Введите положительное число. Либо "0", если ипотека без первоначального взноса.`;
     } else {
@@ -25,9 +25,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     } else {
         //преобразуем строку в число:
         amount = +amount; 
-        if (amount <= contribution) {
+        if (amount < contribution) {
             console.log(`Параметр ${"amount"} содержит неправильное значение ${amount}. Он не может быть меньше или равен параметру ${"contribution"}`);
-            return `\"Начальный взнос\" не может быть больше или равен значению \"Общая стоимость\". Укажите корректные значения.`;           
+            return `\"Начальный взнос\" не может быть больше значения \"Общая стоимость\". Укажите корректное значение.`;           
         }
     }
     //проверяем параметр "Срок ипотеки":
@@ -60,7 +60,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 }
 
 function getGreeting(name) {
-    if (!name || !name.trim()) {
+    if (name === undefined || name === null || name === "" || !name.trim()) {
         name = `Аноним`;
     }
     return `Привет, мир! Меня зовут ${name}.`
